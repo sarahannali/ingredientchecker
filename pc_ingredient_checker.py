@@ -21,6 +21,8 @@ def pcScraper(readpage):
     done = 0
 
     for ingredient in ingredients:
+
+        #Scraping the website:
         ingrName = ingredient.find("a").get_text()
         print(f"now SCRAPING {pcUrl}{readpage}")
         ingrRating = ingredient.find(class_="col-rating").get_text()
@@ -36,6 +38,7 @@ def pcScraper(readpage):
         else:
             ingrDesc = "N/A"
 
+        #Putting info into mongoDB:
         ingredientInfo = {
             "description": ingrDesc,
             "summary": ingrRating,
@@ -85,6 +88,8 @@ def pcScraper(readpage):
 
 
 if pcscraping == "Y":
+
+    #Allows you to only scrape certain pages:
     lettersToRun = input("Run entire alphabet? (Y/N): ").upper()
 
     if lettersToRun == "Y":

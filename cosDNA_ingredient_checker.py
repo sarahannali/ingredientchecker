@@ -33,7 +33,9 @@ headers = {
 }
 
 
-def cosScraper(requestedIngr):
+def cosScraper():
+
+    #Sending and scraping form response:
     response = requests.post(cosUrl, data=data, headers=headers)
     soup = BeautifulSoup(response.text, 'html.parser')
     ingredients = soup.find_all(class_="tr-i")
@@ -45,6 +47,7 @@ def cosScraper(requestedIngr):
         ingrAcne = ingrMoreInfo[0].get_text().split()
         ingrIrritant = ingrMoreInfo[1].get_text().split()
 
+        #Putting info into mongoDB:
         ingredientInfo = {
             "description": ingrDesc,
             "acne": ingrAcne,
@@ -86,6 +89,6 @@ def cosScraper(requestedIngr):
             )
 
 
-cosScraper(requestedIngr)
+cosScraper()
 
 # for ingr in requestedIngr:
