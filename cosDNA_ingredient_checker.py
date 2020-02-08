@@ -8,7 +8,7 @@ descriptions = db.ingredient_descriptions
 names = db.ingredient_names
 
 requestedIngr = input(
-    "What ingredients would you like? (separated by a , and a space): ").upper()
+    "What ingredients would you like to run? ").upper()
 
 cosUrl = "http://cosdna.com/eng/ingredients.php"
 
