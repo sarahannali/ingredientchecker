@@ -1,0 +1,9 @@
+.CustomSlider {
+    font-size: 14px;
+    display: inline-block;
+    width: 30%;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+    margin: 0 auto;
+}

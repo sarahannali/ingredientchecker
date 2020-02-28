@@ -1,0 +1,72 @@
+
+.IngrForm{
+    margin-top: 35px;
+    text-align: center;
+}
+
+.IngrForm h3{
+    font-size: 15px;
+}
+
+
+.IngrForm textarea {
+    outline: none;
+    width: 80%;
+    height: 28vh;
+    margin-bottom: 25px;
+    padding: 10px;
+}
+
+.IngrForm textarea::placeholder{
+    color: rgb(190, 190, 190)
+}
+
+.checkboxes{
+    display: inline-block;
+}
+
+.buttonBefore {
+    margin-top: 20px;
+    outline: none;
+    height: 40px;
+    width: 50%;
+    border-radius: 40px;
+    font-weight: 700;
+    border: 2px solid #FFA177FF;
+    background: white;
+    color: #FFA177FF;
+    letter-spacing: 1px;
+    font-family: 'Muli', sans-serif;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.buttonBefore:hover{
+    color: white;
+    background: #FFA177FF;
+}
+
+.onClick {
+    margin-top: 20px;
+    outline: none;
+    height: 40px;
+    border-radius: 40px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    width: 40px;
+    border: 2px solid lightgray;
+    border-top-color: #FFA177FF;
+    border-width:3px;
+    font-size:0;
+    animation: rotating 1s 0.4s linear infinite;
+}
+
+@keyframes rotating {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }

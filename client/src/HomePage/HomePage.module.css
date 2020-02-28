@@ -1,0 +1,26 @@
+.HomePage{
+    width: 90%;
+    height: 90vh;
+    margin: 10% auto;
+    background-color: white;
+    -webkit-box-shadow: 0px 33px 17px -22px rgba(0,0,0,0.56);
+    -moz-box-shadow: 0px 33px 17px -22px rgba(0,0,0,0.56);
+    box-shadow: 0px 33px 17px -22px rgba(0,0,0,0.56);
+    overflow: auto;
+    padding-bottom: 25px;
+}
+
+/* width */
+::-webkit-scrollbar {
+width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: rgb(170, 170, 170);
+}
