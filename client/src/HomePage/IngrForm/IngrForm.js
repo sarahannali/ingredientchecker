@@ -4,7 +4,6 @@ import axios from 'axios';
 import Checkbox from '@material-ui/core/Checkbox';
 import CustomSlider from './CustomSlider/CustomSlider';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-// import useInputState from '../hooks/useInputState';
 
 const theme = createMuiTheme({
     palette: {
@@ -27,14 +26,10 @@ class IngrForm extends Component {
             PaulasChoice: true,
             Vegan: true
         }
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
-        this.handleSliderChange = this.handleSliderChange.bind(this);
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
-    }
-
-    handleSliderChange(name, e, val) {
-        this.setState({ [name]: val });
+        this.handleSliderChange = this.handleSliderChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleTextChange(e) {
@@ -43,9 +38,14 @@ class IngrForm extends Component {
         })
     }
 
-    handleCheckboxChange(name) {
-        let checkboxCopy = this.state[name];
-        this.setState({ [name]: !checkboxCopy })
+    handleCheckboxChange(e) {
+        this.setState({
+            [e.target.value]: e.target.checked
+        })
+    }
+
+    handleSliderChange(name, e, val) {
+        this.setState({ [name]: val });
     }
 
     handleSubmit(e) {
@@ -72,19 +72,13 @@ class IngrForm extends Component {
                 <Checkbox
                     defaultChecked
                     color="default"
-                    value="default"
+                    value={el}
                     inputProps={{ 'aria-label': 'checkbox with default color' }}
-                    onChange={() => this.handleCheckboxChange(el)}
+                    onChange={this.handleCheckboxChange}
                 />
                 {el}
             </div>
         ))
-
-        let buttonClasses = classes.buttonBefore
-
-        if (this.state.running === true) {
-            buttonClasses = classes.onClick
-        }
 
         return (
             <div className={classes.IngrForm}>
@@ -94,7 +88,6 @@ class IngrForm extends Component {
                         <textarea name="request" id="request" onChange={this.handleTextChange} placeholder="Ex: Pyrus Malus (Apple) Fruit Water, Butylene Glycol, Glycolic Acid, Niacinamide, Sodium Hydroxide, 1,2-Hexanediol, Panthenol, Sodium Hyaluronate, Xanthan Gum, Ethyl Hexanediol."></textarea>
                     </label>
                     <hr></hr>
-                    <div>
                         <ThemeProvider theme={theme}>
                             <h5>Results to Include:</h5>
                             {checkboxes}
@@ -106,8 +99,7 @@ class IngrForm extends Component {
                                 <CustomSlider name="Comedogenic Limit" update={this.handleSliderChange} id="acne" />
                             </div>
                         </ThemeProvider>
-                    </div>
-                    <button type="submit" className={buttonClasses} onClick={this.handleSubmit} disabled={!this.state.textarea}>Submit</button>
+                    <button type="submit" className={this.state.running ? classes.onClick : classes.button} onClick={this.handleSubmit} disabled={!this.state.textarea}>Submit</button>
                 </form>
             </div >
         )

@@ -1,29 +1,20 @@
-
 .IngrForm{
-    margin-top: 35px;
+    margin-top: 7%;
     text-align: center;
 }
 
 .IngrForm h3{
-    font-size: 25px;
+    font-size: 1.5em;
     text-align: left;
-    margin-bottom: 20px;
+    margin-bottom: 4%;
     padding-left: 8%;
 }
-
-
-@media only screen and (max-width: 600px) {
-    .IngrForm h3 {
-      font-size: 20px;
-    }
-  }
-
 
 .IngrForm textarea {
     outline: none;
     width: 80%;
     height: 28vh;
-    padding: 10px;
+    padding: 2%;
 }
 
 .IngrForm textarea::placeholder{
@@ -31,49 +22,37 @@
 }
 
 .IngrForm hr{
-    height: 1px;
+    height: .05em;
     background-color: #ddd;
     border: none;
     width: 90%;
-    margin-top: 40px;
+    margin-top: 5%;
 }
 
 .IngrForm h5{
-    font-size: 20px;
+    font-size: 1.2em;
     text-align: left;
-    margin-bottom: 25px;
+    margin-bottom: 3%;
     padding-left: 8%;
 }
 
-@media only screen and (max-width: 600px) {
-    .IngrForm h5 {
-      font-size: 18px;
-    }
-  }
-
 .checkboxes{
-    display: inline-block;
+  font-size: .9em;
+  display: inline-block;
 }
-
-@media only screen and (max-width: 600px) {
-    .checkboxes {
-      font-size: 13px;
-    }
-  }
 
 .IngrForm p{
   text-align: left;
   padding-left: 8%;
   padding-right: 8%;
-  font-size: 15px;
-  margin-bottom: 25px;
+  font-size: .9em;
+  margin-bottom: 5%;
 }
 
-.buttonBefore {
-  margin-top: 50px;
-  margin-bottom: 30px;
+.button {
+  margin-top: 7%;
   outline: none;
-  height: 40px;
+  height: 3.5em;
   width: 50%;
   border-radius: 40px;
   font-weight: 700;
@@ -81,29 +60,27 @@
   background: white;
   color: #FFA177FF;
   letter-spacing: 1px;
-  font-family: 'Muli', sans-serif;
   cursor: pointer;
   transition: all 0.4s ease;
 }
 
+.button:hover{
+  color: white;
+  background: #FFA177FF;
+}
 
-.IngrForm button:disabled{
+.button:disabled{
   color: gray;
   border: 2px solid gray;
 }
 
-.IngrForm button:disabled:hover{
+.button:disabled:hover{
   color: white;
   background: gray;
 }
 
-.buttonBefore:hover{
-    color: white;
-    background: #FFA177FF;
-}
-
 .onClick {
-    margin-top: 20px;
+    margin-top: 7%;
     outline: none;
     height: 40px;
     border-radius: 40px;
