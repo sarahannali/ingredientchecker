@@ -1,22 +1,42 @@
 .Header {
-    margin: 0 auto;
-    width: 80%;
-    margin-bottom: 2%;
-    margin-top: 5%;
+    width: 100%;
+    height: 10%;
+    background-color: #ffffff;
+    position: absolute;
+    top: 0;
+    display: flex;
+    align-items: center;
+    -webkit-box-shadow: 0px 33px 17px -22px rgba(0,0,0,0.56);
+    -moz-box-shadow: 0px 33px 17px -22px rgba(0,0,0,0.56);
+    box-shadow: 0px 25px 17px -22px rgba(0,0,0,0.56);
+    z-index: 1;
 }
 
 .Header h1{
-    font-size:30px;
-    font-weight: 200;
+    font-size:1.5em;
     text-align: left;
-    margin-bottom: 0;
+    width: 100%;
+    margin: 0% 5%;
+    font-weight: 400;
+    color: rgb(22, 38, 48);
 }
 
-.Header a {
-    color: black;
-    text-decoration: none;
-    font-weight: 400;
-    font-family: 'Muli', sans-serif;
+.links{
+  margin-left: 3%;
+  text-align: center;
+}
+
+.links a {
     transition: 0.4s;
-    font-size: 12px;
+    font-size: .7em;
+}
+
+.Header a:hover{
+    color: #FFA177FF;
+}
+
+.Header i{
+    margin-left: 3%;
+    font-size: 1.5em;
+    color: #FFA177FF;
 }

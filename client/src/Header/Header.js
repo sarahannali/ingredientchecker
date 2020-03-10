@@ -1,15 +1,15 @@
 import React from 'react';
 import classes from './Header.module.css';
-import HeaderLink from './HeaderLink/HeaderLink'
 
-function Header(props) {
+function Header() {
     return (
         <div className={classes.Header}>
-            <h1>CHECK MY SKINCARE</h1>
+            <i className="fas fa-flask"></i>
+            <a href="/"><h1>Check My Skincare</h1></a>
             <span className={classes.links}>
-                <HeaderLink link="https://sarahsprojects.com/" linkName="CONTACT" linkhover={props.linkhover} />
+                <a href="https://sarahsprojects.com/">CONTACT</a>
                 <span> | </span>
-                <HeaderLink link="https://github.com/sarahannali/ingredientchecker" linkName="GITHUB" linkhover={props.linkhover} />
+                <a href="https://github.com/sarahannali/ingredientchecker">GITHUB</a>
             </span>
         </div>
     )
