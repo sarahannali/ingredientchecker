@@ -5,15 +5,24 @@
 }
 
 .IngrForm h3{
-    font-size: 15px;
+    font-size: 25px;
+    text-align: left;
+    margin-bottom: 20px;
+    padding-left: 8%;
 }
+
+
+@media only screen and (max-width: 600px) {
+    .IngrForm h3 {
+      font-size: 20px;
+    }
+  }
 
 
 .IngrForm textarea {
     outline: none;
     width: 80%;
     height: 28vh;
-    margin-bottom: 25px;
     padding: 10px;
 }
 
@@ -21,24 +30,71 @@
     color: rgb(190, 190, 190)
 }
 
+.IngrForm hr{
+    height: 1px;
+    background-color: #ddd;
+    border: none;
+    width: 90%;
+    margin-top: 40px;
+}
+
+.IngrForm h5{
+    font-size: 20px;
+    text-align: left;
+    margin-bottom: 25px;
+    padding-left: 8%;
+}
+
+@media only screen and (max-width: 600px) {
+    .IngrForm h5 {
+      font-size: 18px;
+    }
+  }
+
 .checkboxes{
     display: inline-block;
 }
 
+@media only screen and (max-width: 600px) {
+    .checkboxes {
+      font-size: 13px;
+    }
+  }
+
+.IngrForm p{
+  text-align: left;
+  padding-left: 8%;
+  padding-right: 8%;
+  font-size: 15px;
+  margin-bottom: 25px;
+}
+
 .buttonBefore {
-    margin-top: 20px;
-    outline: none;
-    height: 40px;
-    width: 50%;
-    border-radius: 40px;
-    font-weight: 700;
-    border: 2px solid #FFA177FF;
-    background: white;
-    color: #FFA177FF;
-    letter-spacing: 1px;
-    font-family: 'Muli', sans-serif;
-    cursor: pointer;
-    transition: all 0.4s ease;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  outline: none;
+  height: 40px;
+  width: 50%;
+  border-radius: 40px;
+  font-weight: 700;
+  border: 2px solid #FFA177FF;
+  background: white;
+  color: #FFA177FF;
+  letter-spacing: 1px;
+  font-family: 'Muli', sans-serif;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+
+.IngrForm button:disabled{
+  color: gray;
+  border: 2px solid gray;
+}
+
+.IngrForm button:disabled:hover{
+  color: white;
+  background: gray;
 }
 
 .buttonBefore:hover{
