@@ -1,21 +1,37 @@
-.ResultsPage{
+.ResultsPage {
     width: 90%;
-    height: 90vh;
-    margin: 10% auto;
+    margin-top: 15vh;
+    margin-bottom: 10vh;
     background-color: white;
     -webkit-box-shadow: 0px 33px 17px -22px rgba(0,0,0,0.56);
     -moz-box-shadow: 0px 33px 17px -22px rgba(0,0,0,0.56);
     box-shadow: 0px 33px 17px -22px rgba(0,0,0,0.56);
-    overflow: auto;
-    padding-bottom: 25px;
+    padding-bottom: 7%;
+    max-width: 900px;
 }
 
 h3 {
     text-align: center;
 }
 
-input {
-    text-align: center;
+.button {
+    outline: none;
+    height: 3.5em;
+    width: 50%;
+    border-radius: 40px;
+    font-weight: 700;
+    border: 2px solid rgb(87, 168, 190);
+    background: white;
+    color: rgb(87, 168, 190);
+    letter-spacing: 1px;
+    font-family: 'Muli', sans-serif;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.button:hover{
+    color: white;
+    background: rgb(87, 168, 190);
 }
 
 /* width */
