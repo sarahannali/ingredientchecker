@@ -1,18 +1,23 @@
 import React from 'react';
 import classes from './ResultsTable.module.css';
+import ColumnMaker from './ColumnMaker/ColumnMaker'
 
 function ResultsTable(props) {
-    const ingredientInfo = props.ingredients.map((el, i) => (
-        <div key={i}>
-            <tr>
-                <td>{el.name}</td>
-                <td>{el.cosDNA.info} (<span className={classes.acne}>{el.cosDNA.acne}</span>,<span className={classes.irritant}>{el.cosDNA.acne}</span>)</td>
-                <td>{el.PC}</td>
-                <td>{el.INCI.info} (<span className={classes.acne}>{el.INCI.acne}</span>,<span className={classes.irritant}>{el.INCI.irritant}</span>)</td>
-                <td>{el.vegan}</td>
-            </tr>
-        </div>
-    ))
+    const sourcesToInclude = Object.keys(props.sources).filter((el) => {
+        return props.sources[el]
+    })
+
+    const rows = props.ingredients.map((ingrDocument, i) => {
+        const columns = ingrDocument.descriptions.map((ingrDesc, i) => {
+            if (sourcesToInclude.includes(ingrDesc.source)){
+                return ColumnMaker(ingrDesc, i, props.acneLimit, props.irrLimit, props.changePurchase)
+            }})
+
+        return <tr key = {i}>
+            <td>{ingrDocument.ingredient}</td>
+            {columns}
+        </tr>
+        })
 
     return (
         <div className={classes.ResultsTable}>
@@ -29,10 +34,10 @@ function ResultsTable(props) {
                             </tr>
                         </thead>
                         <tbody>
+                            {rows}
                         </tbody>
                     </table>
                 </div>
-                <button className={classes.button}>Start Over</button>
             </div>
         </div >
     )
