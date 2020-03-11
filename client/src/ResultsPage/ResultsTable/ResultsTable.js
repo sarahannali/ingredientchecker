@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from './ResultsTable.module.css';
-import ColumnMaker from './ColumnMaker/ColumnMaker'
+import ColumnMaker from './ColumnMaker/ColumnMaker';
+import uuid from 'uuid';
 
 function ResultsTable(props) {
     const sourcesToInclude = Object.keys(props.sources).filter((el) => {
@@ -8,12 +9,17 @@ function ResultsTable(props) {
     })
 
     const rows = props.ingredients.map((ingrDocument, i) => {
-        const columns = ingrDocument.descriptions.map((ingrDesc, i) => {
+        const columns = sourcesToInclude.map((el) => {
+            return <td key={el}></td>
+        })
+        
+        ingrDocument.descriptions.forEach((ingrDesc, i) => {
             if (sourcesToInclude.includes(ingrDesc.source)){
-                return ColumnMaker(ingrDesc, i, props.acneLimit, props.irrLimit)
+                const index = sourcesToInclude.indexOf(ingrDesc.source)
+                columns[index] = ColumnMaker(ingrDesc, i, props.acneLimit, props.irrLimit)
             }})
 
-        return <tr key = {i}>
+        return <tr key={i}>
             <td>{ingrDocument.ingredient}</td>
             {columns}
         </tr>
@@ -21,10 +27,9 @@ function ResultsTable(props) {
 
     return (
         <div className={classes.ResultsTable}>
-            <div className={classes.info}>
                 <div className={classes.results}>
                     <table>
-                        <thead className={classes.tableheaders}>
+                        <thead>
                             <tr>
                                 <th>Ingredient Name</th>
                                 {sourcesToInclude.map((source, i) => {
@@ -37,7 +42,6 @@ function ResultsTable(props) {
                         </tbody>
                     </table>
                 </div>
-            </div>
         </div >
     )
 };
