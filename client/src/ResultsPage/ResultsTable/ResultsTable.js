@@ -10,7 +10,7 @@ function ResultsTable(props) {
     const rows = props.ingredients.map((ingrDocument, i) => {
         const columns = ingrDocument.descriptions.map((ingrDesc, i) => {
             if (sourcesToInclude.includes(ingrDesc.source)){
-                return ColumnMaker(ingrDesc, i, props.acneLimit, props.irrLimit, props.changePurchase)
+                return ColumnMaker(ingrDesc, i, props.acneLimit, props.irrLimit)
             }})
 
         return <tr key = {i}>
@@ -27,10 +27,9 @@ function ResultsTable(props) {
                         <thead className={classes.tableheaders}>
                             <tr>
                                 <th>Ingredient Name</th>
-                                <th>cosDNA</th>
-                                <th>Paula's Choice</th>
-                                <th>INCIdecoder</th>
-                                <th>Vegan?</th>
+                                {sourcesToInclude.map((source, i) => {
+                                    return <th key={i}>{source}</th>
+                                })}
                             </tr>
                         </thead>
                         <tbody>

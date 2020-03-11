@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './ResultsCards.module.css';
-import ResultsCard2 from './ResultsCard/ResultsCard2'
+import ResultsCard from './ResultsCard/ResultsCard'
 
 function ResultsCards(props) {
     const sourcesToInclude = Object.keys(props.sources).filter((el) => {
@@ -8,7 +8,7 @@ function ResultsCards(props) {
     })
 
     const resultsCards = props.ingredients.map((ingrDocument, i) => {
-        return <ResultsCard2
+        return <ResultsCard
             ingredient={ingrDocument}
             irrLimit={props.irrLimit}
             acneLimit={props.acneLimit}

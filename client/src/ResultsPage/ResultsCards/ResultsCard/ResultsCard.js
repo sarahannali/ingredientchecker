@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
+import classes from './ResultsCard.module.css';
 import Checkbox from '@material-ui/core/Checkbox';
 import descriptionMaker from './DescriptionMaker/DescriptionMaker';
 
-function ResultsCard2(props) {
-    const changePurchase = () => {
-        return props.changePurchase(false)
-    }
+function ResultsCard(props) {
 
     const ingrName = props.ingredient.ingredient;
 
@@ -24,4 +22,4 @@ function ResultsCard2(props) {
     )
 }
 
-export default ResultsCard2
+export default ResultsCard

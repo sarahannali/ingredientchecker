@@ -1,9 +1,8 @@
 import React from 'react';
 
-function columnMaker(ingrDesc, i, acneLimit, irrLimit, changePurchase) {
+function columnMaker(ingrDesc, i, acneLimit, irrLimit) {
     if (ingrDesc.source === 'INCIdecoder') {
         if (ingrDesc.acne > acneLimit || ingrDesc.irritant > irrLimit || ingrDesc.rating === "icky") {
-            changePurchase(false)
             return <td bgcolor="#ffeee6" key={i}>
                 <p>Rating: {ingrDesc.rating}</p>
                 <p>Irritancy: {ingrDesc.irritant}</p>
@@ -27,7 +26,6 @@ function columnMaker(ingrDesc, i, acneLimit, irrLimit, changePurchase) {
 
     else if (ingrDesc.source === 'cosDNA') {
         if (ingrDesc.acne > acneLimit || ingrDesc.irritant > irrLimit) {
-            changePurchase(false)
             return <td bgcolor="#ffeee6" key={i}>
                 <p>Purpose: {ingrDesc.description}</p>
                 <p>Irritancy: {ingrDesc.irritant}</p>
@@ -44,7 +42,6 @@ function columnMaker(ingrDesc, i, acneLimit, irrLimit, changePurchase) {
 
     else if (ingrDesc.source === 'PaulasChoice') {
         if (ingrDesc.rating === "Poor") {
-            changePurchase(false)
             return <td bgcolor="#ffeee6" key={i}>
                 <p>Rating: {ingrDesc.rating}</p>
             </td>

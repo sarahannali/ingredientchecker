@@ -7,7 +7,8 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 function ResultsPage(props) {
-    const [value, setValue] = React.useState('cardForm');
+    const [value, setValue] = useState('cardForm');
+    const [purchase, setPurchase] = useState(true)
 
     const handleChange = event => {
         setValue(event.target.value);
@@ -15,7 +16,9 @@ function ResultsPage(props) {
 
     return (
         <div className={classes.ResultsPage}>
-            <h3>Verdict:  <span className={classes.purchase}>Unsafe Purchase</span></h3>
+            <h3>Verdict:  {purchase
+                ? <span className={classes.purchase}>Safe Purchase</span>
+            : <span className={classes.purchase}>Unsafe Purchase</span>}</h3>
             <RadioGroup aria-label="position" name="position" value={value} onChange={handleChange} row>
                 <FormControlLabel
                     value="cardForm"
@@ -31,9 +34,19 @@ function ResultsPage(props) {
                 />
             </ RadioGroup>
             {value === 'cardForm'
-                ? <ResultsCards />
+                ? <ResultsCards
+                    sources={props.results.sources}
+                    ingredients={props.results.found_names}
+                    acneLimit={props.results.limits.acneLimit}
+                    irrLimit={props.results.limits.irrLimit}
+                    changePurchase={() => setPurchase(false)}
+                    />
                 : <ResultsTable
-                    sources={props.sources} />}
+                    sources={props.results.sources}
+                    ingredients={props.results.found_names}
+                    acneLimit={props.results.limits.acneLimit}
+                    irrLimit={props.results.limits.irrLimit} />}
+                    
             <button className={classes.button}>Start Over</button>
         </div>
     );
