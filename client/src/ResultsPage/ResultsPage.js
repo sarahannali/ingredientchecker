@@ -17,9 +17,9 @@ function ResultsPage(props) {
     return (
         <div className={classes.ResultsPage}>
             <h3>Verdict:  {purchase
-                ? <span className={classes.purchase}>Safe Purchase</span>
-            : <span className={classes.purchase}>Unsafe Purchase</span>}</h3>
-            <RadioGroup aria-label="position" name="position" value={value} onChange={handleChange} row>
+                ? <span style={{color:'#57A8BE'}} className={classes.purchase}>Safe Purchase</span>
+            : <span style={{color:'#e8916b'}} className={classes.purchase}>Unsafe Purchase</span>}</h3>
+            <RadioGroup className={classes.inputs} aria-label="position" name="position" value={value} onChange={handleChange} row>
                 <FormControlLabel
                     value="cardForm"
                     control={<Radio color="default" />}
