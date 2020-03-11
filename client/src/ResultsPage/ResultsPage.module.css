@@ -16,7 +16,10 @@ h3 {
 
 .button {
     outline: none;
-    height: 3.5em;
+    height: 40px;
+    display: block;
+    text-align: center;
+    line-height: 40px;
     width: 50%;
     border-radius: 40px;
     font-weight: 700;

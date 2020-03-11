@@ -47,7 +47,7 @@ function ResultsPage(props) {
                     acneLimit={props.results.limits.acneLimit}
                     irrLimit={props.results.limits.irrLimit} />}
                     
-            <button className={classes.button}>Start Over</button>
+            <a href="/" className={classes.button}>Start Over</a>
         </div>
     );
 }
