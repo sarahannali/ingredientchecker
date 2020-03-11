@@ -3,11 +3,14 @@ body {
 }
 
 .App{
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-  background: rgb(210, 245, 255);
-  background: linear-gradient(172deg, rgb(210, 245, 255) 50%, rgba(245,199,184,1) 50%);
-  overflow: hidden;
+  background: rgb(22, 38, 48);
+}
+
+a{
+  color: black;
+  font-family: 'Muli', sans-serif;
+  text-decoration: none;
 }
