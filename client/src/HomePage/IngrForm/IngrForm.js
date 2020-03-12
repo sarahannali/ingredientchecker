@@ -19,8 +19,8 @@ class IngrForm extends Component {
         this.state = {
             running: false,
             textarea: '',
-            irritant: 0,
-            acne: 0,
+            irrLimit: 0,
+            acneLimit: 0,
             cosDNA: true,
             INCIdecoder: true,
             PaulasChoice: true,
@@ -57,7 +57,7 @@ class IngrForm extends Component {
 
         axios.post("http://localhost:3000/ingrs", this.state)
             .then(res => {
-                this.props.response(res);
+                this.props.response(res.data);
             })
             .catch(err => {
                 console.log(err);
@@ -95,8 +95,8 @@ class IngrForm extends Component {
                             <h5>Limits?</h5>
                             <p>Any results below given limits will be considered unsafe. 0 is the most restrictive, 5 is the least restrictive.</p>
                             <div>
-                                <CustomSlider name="Irritancy Limit" update={this.handleSliderChange} id="irritant" />
-                                <CustomSlider name="Comedogenic Limit" update={this.handleSliderChange} id="acne" />
+                                <CustomSlider name="Irritancy Limit" update={this.handleSliderChange} id="irrLimit" />
+                                <CustomSlider name="Comedogenic Limit" update={this.handleSliderChange} id="acneLimit" />
                             </div>
                         </ThemeProvider>
                     <button type="submit" className={this.state.running ? classes.onClick : classes.button} onClick={this.handleSubmit} disabled={!this.state.textarea}>Submit</button>
