@@ -1,47 +1,45 @@
 import React from 'react';
 import classes from './ResultsTable.module.css';
-import ColumnMaker from './ColumnMaker/ColumnMaker';
 import uuid from 'uuid';
+import ColumnMaker from './ColumnMaker/ColumnMaker'
 
 function ResultsTable(props) {
-    const sourcesToInclude = Object.keys(props.sources).filter((el) => {
-        return props.sources[el]
-    })
+    const rows = props.ingredients.map((ingrDocument, i1) => {
+        let columns = Array.from({ length: props.sources.length }, (_, i2) => <td key={i2}></td>)
 
-    const rows = props.ingredients.map((ingrDocument, i) => {
-        const columns = sourcesToInclude.map((el) => {
-            return <td key={el}></td>
+        ingrDocument.ingredientDescriptions.forEach((desc) => {
+            const id = uuid()
+            return (desc.description
+                ? columns[props.sources.indexOf(desc.source)] = <ColumnMaker
+                    description={desc}
+                    key={id}
+                />
+                : <td key={id}></td>)
         })
-        
-        ingrDocument.descriptions.forEach((ingrDesc, i) => {
-            if (sourcesToInclude.includes(ingrDesc.source)){
-                const index = sourcesToInclude.indexOf(ingrDesc.source)
-                columns[index] = ColumnMaker(ingrDesc, i, props.acneLimit, props.irrLimit)
-            }})
 
-        return <tr key={i}>
-            <td>{ingrDocument.ingredient}</td>
+        return <tr key={i1}>
+            <td>{ingrDocument.ingredientName}</td>
             {columns}
         </tr>
-        })
+    })
 
     return (
         <div className={classes.ResultsTable}>
-                <div className={classes.results}>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Ingredient Name</th>
-                                {sourcesToInclude.map((source, i) => {
-                                    return <th key={i}>{source}</th>
-                                })}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {rows}
-                        </tbody>
-                    </table>
-                </div>
+            <div className={classes.results}>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ingredient Name</th>
+                            {props.sources.map((source, i) => {
+                                return <th key={i}>{source}</th>
+                            })}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {rows}
+                    </tbody>
+                </table>
+            </div>
         </div >
     )
 };
