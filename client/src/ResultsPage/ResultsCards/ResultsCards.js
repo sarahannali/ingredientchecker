@@ -18,7 +18,7 @@ function ResultsCards(props) {
     })
 
     return (
-        <div>
+        <div className={classes.ResultsCards}>
             {resultsCards}
         </div>
     );
