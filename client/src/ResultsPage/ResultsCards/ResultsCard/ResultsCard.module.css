@@ -3,7 +3,7 @@
     -webkit-box-shadow: 0px 15px 17px -22px rgba(0,0,0,0.56);
     -moz-box-shadow: 0px 15px 17px -22px rgba(0,0,0,0.56);
     box-shadow: 0px 15px 17px -22px rgba(0,0,0,0.56);
-    border: 1px solid rgba(0,0,0,0.56);
+    border: 1px solid #ddd;
     margin: 0 auto 5% auto;
     transition: all 0.4s ease;
 }
