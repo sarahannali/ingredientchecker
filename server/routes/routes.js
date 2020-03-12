@@ -12,30 +12,35 @@ module.exports = (app) => {
 
     app.post('/ingrs', async function (req, res) {
         try {
-            const request = req.body.request;
+            const request = req.body.textarea;
+            const sources = {cosDNA: req.body.cosDNA, INCIdecoder: req.body.INCIdecoder, PaulasChoice: req.body.PaulasChoice, Vegan: req.body.Vegan}
+            const limits = {acneLimit: req.body.acneLimit, irrLimit: req.body.irrLimit}
             const request_formatted = request.toUpperCase();
             const request_array = request_formatted.split(", ");
+            let found_names_array = new Array(request_array.length);
 
             const found_Names = await Name.find({ 'ingredient': { $in: request_array } }).populate("descriptions").exec();
 
             let to_scrape = [];
 
-            const db_names = found_Names.map((el) => el.ingredient);
+            const db_names = found_Names.map((el) => {
+                found_names_array[request_array.indexOf(el.ingredient)] = el
+                return el.ingredient});
+
             request_array.forEach((el) => {
                 if (!db_names.includes(el)) {
                     to_scrape.push(el);
                 }
             })
 
-            if (to_scrape.length > 0) {
-                const scraped = await Scrapers.runScrapers(to_scrape);
-                const all_Ingredients = await Name.find({ '_id': { $in: scraped } }).populate("descriptions").exec();
+            // if (to_scrape.length > 0) {
+            //     const scraped = await Scrapers.runScrapers(to_scrape);
+            //     const all_Ingredients = await Name.find({ '_id': { $in: scraped } }).populate("descriptions").exec();
 
-                found_Names.push(all_Ingredients);
-            }
-            console.log(found_Names)
-            // res.render("landing", { names: found_Names });
-            // res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+            //     found_Names.push(all_Ingredients);
+            // }
+
+            res.json({found_names: found_names_array, sources: sources, limits: limits})
 
         } catch (e) {
             console.log(e);
