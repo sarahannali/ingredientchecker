@@ -1,106 +1,122 @@
 import React from 'react';
+import classes from './DescriptionMaker.module.css'
 
-function descriptionMaker(ingrDesc, i, acneLimit, irrLimit, changePurchase) {
-    console.log('running')
-    if (ingrDesc.source === 'INCIdecoder') {
-        if (ingrDesc.acne > acneLimit || ingrDesc.irritant > irrLimit || ingrDesc.rating === "icky") {
-            changePurchase(false)
-            return <div key={i}>
-                <div style={{ backgroundColor: "#ffeee6" }}>
-                    {ingrDesc.source}
+function descriptionMaker(props) {
+    if (props.ingrDesc.source === 'INCIdecoder') {
+        if (props.ingrDesc.acne > props.acneLimit || props.ingrDesc.irritant > props.irrLimit || props.ingrDesc.rating === "icky") {
+            return <div>
+                <div className={classes.source} style={{ backgroundColor: "#ffeee6" }}>
+                    {props.ingrDesc.source}
                 </div>
-                <p>Rating: {ingrDesc.rating}</p>
-                <p>Irritancy: {ingrDesc.irritant}</p>
-                <p>Acne: {ingrDesc.acne}</p>
+                <div className={classes.moreInfo}>
+                    <p>Rating: {props.ingrDesc.rating}</p>
+                    <p>Irritancy: {props.ingrDesc.irritant}</p>
+                    <p>Acne: {props.ingrDesc.acne}</p>
+                </div>
             </div>
         }
-        else if (ingrDesc.rating === "goodie" || ingrDesc.rating === "superstar") {
-            return <div key={i}>
-                <div style={{ backgroundColor: "#e0f8ff" }}>
-                    {ingrDesc.source}
+        else if (props.ingrDesc.rating === "goodie" || props.ingrDesc.rating === "superstar") {
+            return <div>
+                <div className={classes.source} style={{ backgroundColor: "#e0f8ff" }}>
+                    {props.ingrDesc.source}
                 </div>
-                <p>Rating: {ingrDesc.rating}</p>
-                <p>Irritancy: {ingrDesc.irritant}</p>
-                <p>Acne: {ingrDesc.acne}</p>
+                <div className={classes.moreInfo}>
+                    <p>Rating: {props.ingrDesc.rating}</p>
+                    <p>Irritancy: {props.ingrDesc.irritant}</p>
+                    <p>Acne: {props.ingrDesc.acne}</p>
+                </div>
             </div>
         }
 
-        return <div key={i}>
-            <div>
-                {ingrDesc.source}
+        return <div>
+            <div className={classes.source}>
+                {props.ingrDesc.source}
             </div>
-            <p>Rating: {ingrDesc.rating}</p>
-            <p>Irritancy: {ingrDesc.irritant}</p>
-            <p>Acne: {ingrDesc.acne}</p>
+            <div className={classes.moreInfo}>
+                <p>Rating: {props.ingrDesc.rating}</p>
+                <p>Irritancy: {props.ingrDesc.irritant}</p>
+                <p>Acne: {props.ingrDesc.acne}</p>
+            </div>
         </div>
     }
 
-    else if (ingrDesc.source === 'cosDNA') {
-        if (ingrDesc.acne > acneLimit || ingrDesc.irritant > irrLimit) {
-            changePurchase(false)
-            return <div key={i}>
-                <div style={{ backgroundColor: "#ffeee6" }}>
-                    {ingrDesc.source}
+    else if (props.ingrDesc.source === 'cosDNA') {
+        if (props.ingrDesc.acne > props.acneLimit || props.ingrDesc.irritant > props.irrLimit) {
+            return <div>
+                <div className={classes.source} style={{ backgroundColor: "#ffeee6" }}>
+                    {props.ingrDesc.source}
                 </div>
-                <p>Purpose: {ingrDesc.description}</p>
-                <p>Irritancy: {ingrDesc.irritant}</p>
-                <p>Acne: {ingrDesc.acne}</p>
+                <div className={classes.moreInfo}>
+                    <p>Purpose: {props.ingrDesc.description}</p>
+                    <p>Irritancy: {props.ingrDesc.irritant}</p>
+                    <p>Acne: {props.ingrDesc.acne}</p>
+                </div>
             </div>
         }
 
-        return <div key={i}>
-            <div>
-                {ingrDesc.source}
+        return <div>
+            <div className={classes.source}>
+                {props.ingrDesc.source}
             </div>
-            <p>Purpose: {ingrDesc.description}</p>
-            <p>Irritancy: {ingrDesc.irritant}</p>
-            <p>Acne: {ingrDesc.acne}</p>
+            <div className={classes.moreInfo}>
+                <p>Purpose: {props.ingrDesc.description}</p>
+                <p>Irritancy: {props.ingrDesc.irritant}</p>
+                <p>Acne: {props.ingrDesc.acne}</p>
+            </div>
         </div>
     }
 
-    else if (ingrDesc.source === 'PaulasChoice') {
-        if (ingrDesc.rating === "Poor") {
-            changePurchase(false)
-            return <div key={i}>
-                <div style={{ backgroundColor: "#ffeee6" }}>
-                    {ingrDesc.source}
+    else if (props.ingrDesc.source === 'PaulasChoice') {
+        if (props.ingrDesc.rating === "Poor") {
+            return <div>
+                <div className={classes.source} style={{ backgroundColor: "#ffeee6" }}>
+                    {props.ingrDesc.source}
                 </div>
-                <p>Rating: {ingrDesc.rating}</p>
+                <div className={classes.moreInfo}>
+                    <p>Rating: {props.ingrDesc.rating}</p>
+                </div>
             </div>
         }
-        else if (ingrDesc.rating === "goodie" || ingrDesc.rating === "superstar" || ingrDesc.rating === "Best") {
-            return <div key={i}>
-                <div style={{ backgroundColor: "#e0f8ff" }}>
-                    {ingrDesc.source}
+        else if (props.ingrDesc.rating === "goodie" || props.ingrDesc.rating === "superstar" || props.ingrDesc.rating === "Best") {
+            return <div>
+                <div className={classes.source} style={{ backgroundColor: "#e0f8ff" }}>
+                    {props.ingrDesc.source}
                 </div>
-                <p>Rating: {ingrDesc.rating}</p>
+                <div className={classes.moreInfo}>
+                    <p>Rating: {props.ingrDesc.rating}</p>
+                </div>
             </div>
         }
 
-        return <div key={i}>
-            <div>
-                {ingrDesc.source}
+        return <div>
+            <div className={classes.source}>
+                {props.ingrDesc.source}
             </div>
-            <p>Rating: {ingrDesc.rating}</p>
+            <div className={classes.moreInfo}>
+                <p>Rating: {props.ingrDesc.rating}</p>
+            </div>
         </div>
     }
 
-    else if (ingrDesc.source === 'Vegan') {
-        if (ingrDesc.vegan === "Not Vegan") {
-            changePurchase(false)
-            return <div key={i}>
-                <div style={{ backgroundColor: "#ffeee6" }}>
-                    {ingrDesc.source}
+    else if (props.ingrDesc.source === 'Vegan') {
+        if (props.ingrDesc.vegan === "Not Vegan") {
+            return <div>
+                <div className={classes.source} style={{ backgroundColor: "#ffeee6" }}>
+                    {props.ingrDesc.source}
                 </div>
-                <p>{ingrDesc.vegan}</p>
+                <div className={classes.moreInfo}>
+                    <p>{props.ingrDesc.vegan}</p>
+                </div>
             </div>
         }
 
-        return <div key={i}>
-            <div>
-                {ingrDesc.source}
+        return <div>
+            <div className={classes.source}>
+                {props.ingrDesc.source}
             </div>
-            <p>{ingrDesc.vegan}</p>
+            <div className={classes.moreInfo}>
+                <p>{props.ingrDesc.vegan}</p>
+            </div>
         </div>
     }
 }

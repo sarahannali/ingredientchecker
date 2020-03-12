@@ -4,43 +4,52 @@
     width: 100%;
 }
 
-.info{
-    text-align: center;
-}
-
 .results{
     border: 1px solid #ddd;
     width: 80%;
     margin: 0 auto;
-    margin-bottom: 35px;
+    margin-bottom: 5%;
 }
 
 .ResultsTable table{
     table-layout: fixed;
     border-collapse: collapse;
     display: block;
-    overflow-y: scroll;
-    height: 50vh;
+    text-align: center;
 }
-  
 
 .ResultsTable th{
-    position: sticky;
     top: 0;
     background-color: #F9FAFB;
     text-align: center;
-    padding: 8px;
-    font-size: 12px;
+    padding: 2%;
+    font-size: .7em;
     margin-bottom:0;
     margin-top:0;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 1;
+}
+
+@media only screen and (max-width: 600px) {
+    .ResultsTable table{
+        overflow: auto;
+    }
+  }
+
+.ResultsTable tbody{
+    overflow: auto;
+    height: 100px;
 }
 
 .ResultsTable td{
     border: 1px solid #ddd;
     text-align: left;
-    padding: 10px;
-    font-size: 14px;
+    font-size: .8em;
     width: 10%;
+    text-align: center;
+    padding: 5px;
 }
 
 .ResultsTable td:first-child {
@@ -64,28 +73,4 @@ background: #f1f1f1;
 /* Handle */
 ::-webkit-scrollbar-thumb {
 background: rgb(170, 170, 170);
-}
-
-.unsafe{
-    background-color: rgb(247, 225, 217);
-}
-
-.button {
-    outline: none;
-    height: 40px;
-    width: 50%;
-    border-radius: 40px;
-    font-weight: 700;
-    border: 2px solid rgb(87, 168, 190);
-    background: white;
-    color: rgb(87, 168, 190);
-    letter-spacing: 1px;
-    font-family: 'Muli', sans-serif;
-    cursor: pointer;
-    transition: all 0.4s ease;
-}
-
-.button:hover{
-    color: white;
-    background: rgb(87, 168, 190);
 }

@@ -10,12 +10,21 @@
     max-width: 900px;
 }
 
-h3 {
-    text-align: center;
+.ResultsPage h3 {
+    text-align: left;
+    padding-left: 8%;
+    padding-top: 3%;
+}
+
+.inputs{
+    justify-content: center;
+    margin-bottom: 4%;
 }
 
 .button {
     outline: none;
+    margin: 0 auto;
+    margin-top: 5%;
     height: 40px;
     display: block;
     text-align: center;
