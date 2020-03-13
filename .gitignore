@@ -1,0 +1,4 @@
+.env
+node_modules
+todo.txt
+scrapers/__pycache__

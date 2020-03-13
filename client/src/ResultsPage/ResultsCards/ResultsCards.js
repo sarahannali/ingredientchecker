@@ -6,7 +6,9 @@ function ResultsCards(props) {
     const resultsCards = props.ingredients.map((ingrDocument, i) => {
         return <ResultsCard
             ingredient={ingrDocument}
-            key={i} />
+            key={i}
+            handleCheckboxChange={props.handleSelected}
+            report={props.report} />
     })
 
     return (
