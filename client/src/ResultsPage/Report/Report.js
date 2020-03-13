@@ -22,7 +22,7 @@ class Report extends Component {
     handleSubmit(e) {
         e.preventDefault();
 
-        axios.post("http://localhost:3000/send-email", [this.state.textarea, this.props.selected])
+        axios.post("http://localhost:3000/report", [this.state.textarea, this.props.selected])
             .then(res => {
                 this.setState({response: true})
             })
