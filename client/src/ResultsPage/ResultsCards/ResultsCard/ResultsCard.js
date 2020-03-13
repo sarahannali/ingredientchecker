@@ -30,9 +30,19 @@ function ResultsCard(props) {
 
     return (
         <div style={{ backgroundColor: ingrColor }} className={classes.ResultsCard}>
-            <div onClick={() => setShowResults(!showResults)} className={classes.title}>
-                <h1>{ingredientName}</h1>
-                {arrow}
+            <div className={classes.titleBox}>
+                {props.report
+                    ? <Checkbox
+                        color="default"
+                        value={ingredientName}
+                        inputProps={{ 'aria-label': 'checkbox with default color' }}
+                        onChange={() => props.handleCheckboxChange(ingredientName)}
+                    />
+                    : null}
+                <div onClick={() => setShowResults(!showResults)} className={classes.title}>
+                    <h1>{ingredientName}</h1>
+                    {arrow}
+                </div>
             </div>
             {showResults
                 ? <div className={classes.description}>{descriptions}</div>
