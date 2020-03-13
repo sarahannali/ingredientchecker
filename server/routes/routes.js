@@ -1,6 +1,7 @@
 const   mongoose = require("mongoose"),
         Name = require("../models/names"),
         descriptions = require("../models/descriptions"),
+        Report = require("../models/reports")
         Scrapers = require("../scrapers/scrapers"),
         path = require("path");
 
@@ -41,6 +42,26 @@ module.exports = (app) => {
             // }
 
             res.json({found_names: found_names_array, sources: sources, limits: limits})
+
+        } catch (e) {
+            console.log(e);
+        }
+    })
+
+    app.post('/report', function (req, res) {
+        try {
+            const request = req.body
+            const textarea = request[0]
+            const selected = request[1]
+            const time = new Date()
+
+            const report1 = new Report({'textarea': textarea, 'selected': selected, 'time': time})
+            report1.save(function(err, report){
+                if (err) return console.log(err);
+                console.log(report + " saved")
+            })
+
+            res.sendStatus(200)
 
         } catch (e) {
             console.log(e);
