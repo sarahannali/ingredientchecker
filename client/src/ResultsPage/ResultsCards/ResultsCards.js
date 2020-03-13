@@ -7,7 +7,7 @@ function ResultsCards(props) {
         return <ResultsCard
             ingredient={ingrDocument}
             key={i}
-            handleCheckboxChange={props.addSelected}
+            handleCheckboxChange={props.handleSelected}
             report={props.report} />
     })
 

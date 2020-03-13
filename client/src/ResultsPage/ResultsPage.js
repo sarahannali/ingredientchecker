@@ -22,7 +22,7 @@ function ResultsPage(props) {
         setValue(event.target.value);
     };
 
-    const addSelected = (value) => {
+    const handleSelected = (value) => {
         if (selected.includes(value)){
             const selectedRemoved = selected.filter((el) => 
                 el !== value
@@ -81,12 +81,13 @@ function ResultsPage(props) {
                 ? <ResultsCards
                     ingredients={ingredients}
                     report={showReport}
-                    addSelected={addSelected}
+                    handleSelected={handleSelected}
                 />
                 : <ResultsTable
                     ingredients={ingredients}
                     sources={sourcesToInclude}
-                    report={showReport} />}
+                    report={showReport}
+                    handleCheckboxChange={handleSelected} />}
             {showReport
                 ? <Report type='footer' selected={selected} />
                 : null}
