@@ -1,0 +1,45 @@
+.Report{
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 15px;
+    padding-bottom: 30px;
+    display: inline-block;
+    padding-left: 6%;
+    padding-right: 8%;
+    text-align: center;
+}
+
+
+.reportButton{
+    outline: none;
+    height: 40px;
+    width: 40px;
+    border-radius: 40px;
+    border: 2px solid rgb(87, 168, 190);
+    background: white;
+    color: rgb(87, 168, 190);
+    line-height: 0em;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    margin-bottom: 30px;
+}
+
+.reportButton:hover{
+    color: white;
+    background: rgb(87, 168, 190);
+}
+
+.Report textarea{
+    outline: none;
+    width: 80%;
+    height: 18vh;
+    padding: 2%;
+}
+
+.Report textarea::placeholder{
+    color: rgb(190, 190, 190)
+}
+
+.Report p{
+    margin-bottom: 20px;
+}

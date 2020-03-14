@@ -8,10 +8,17 @@
     transition: all 0.4s ease;
 }
 
-.title{
+.titleBox{
     display: flex;
     align-items: center;
     padding: 3% 5% 3% 5%;
+}
+
+.title{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-left: 3%;
 }
 
 .ResultsCard h1{
