@@ -14,3 +14,4 @@ client = MongoClient(HOST_URL)
 db = client.ingredient_checker
 descriptions = db.ingredient_descriptions
 names = db.ingredient_names
+vegan = db.ingredient_vegan
