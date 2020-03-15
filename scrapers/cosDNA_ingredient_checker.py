@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-import sys
 import update
 from random import choice
 
@@ -53,6 +52,8 @@ def request_formatter(requested_ingrs):
 
 def cosScraper(requested_ingrs):
 
+    created_ids = []
+
     data = request_formatter(requested_ingrs)
 
     response = requests.post(cos_url, data=data, headers=headers)
@@ -80,8 +81,9 @@ def cosScraper(requested_ingrs):
 
         ingr_source = "cosDNA"
 
-        update.db_update(ingr_name, ingr_source, ingr_link,
+        created = update.db_update(ingr_name, ingr_source, ingr_link,
                          ingr_desc, acne=ingr_acne, irritant=ingr_irritant)
 
-
-cosScraper(sys.argv[1])
+        created_ids.append(str(created))
+    
+    return created_ids

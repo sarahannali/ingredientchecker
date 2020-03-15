@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-import sys
 import update
 from random import choice
 
@@ -52,6 +51,8 @@ def request_formatter(requested_ingrs):
 
 def inciScraper(requested_ingrs):
 
+    created_ids = []
+
     data = request_formatter(requested_ingrs)
     response = requests.post(inci_url, data=data, headers=headers)
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -90,6 +91,8 @@ def inciScraper(requested_ingrs):
 
         ingr_source = "INCIdecoder"
 
-        update.db_update(ingr_name, ingr_source, ingr_link, ingr_desc, purpose=ingr_purpose, rating=ingr_rating, acne=ingr_acne, irritant=ingr_irritant)
+        created = update.db_update(ingr_name, ingr_source, ingr_link, ingr_desc, purpose=ingr_purpose, rating=ingr_rating, acne=ingr_acne, irritant=ingr_irritant)
 
-inciScraper(sys.argv[1])
+        created_ids.append(str(created))
+    
+    return created_ids
