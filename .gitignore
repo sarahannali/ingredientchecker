@@ -2,3 +2,4 @@
 node_modules
 todo.txt
 scrapers/__pycache__
+bin/
