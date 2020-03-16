@@ -15,3 +15,4 @@ db = client.ingredient_checker
 descriptions = db.ingredient_descriptions
 names = db.ingredient_names
 vegan = db.ingredient_vegan
+pc = db.ingredient_pc

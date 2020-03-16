@@ -52,7 +52,7 @@ def request_formatter(requested_ingrs):
 
 def cosScraper(requested_ingrs):
 
-    created_ids = []
+    all_created = []
 
     data = request_formatter(requested_ingrs)
 
@@ -61,29 +61,37 @@ def cosScraper(requested_ingrs):
     ingredients_on_site = soup.find_all(class_="tr-i")
 
     for ingredient in ingredients_on_site:
-        ingr_name = ingredient.find(class_="colors").get_text().strip()
-        ingr_link = ingredient.find(class_="linkb1")['href']
-        ingr_desc = ingredient.find(
-            class_="text-vampire").get_text().replace("\n", "").split()
-        
-        ingr_desc = " ".join(ingr_desc)
+        try:
+            ingr_name = ingredient.find(class_="colors").get_text().strip()
+            ingr_link = ingredient.find(class_="linkb1")['href']
+            ingr_desc = ingredient.find(
+                class_="text-vampire").get_text().replace("\n", "").split()
+            
+            ingr_desc = " ".join(ingr_desc)
 
-        ingr_more_info = ingredient.find_all(class_="text-center")
-        ingr_acne = ingr_more_info[0].get_text().replace("\n", "").strip()
+            ingr_more_info = ingredient.find_all(class_="text-center")
+            ingr_acne = ingr_more_info[0].get_text().replace("\n", "").strip()
 
-        if (ingr_acne == ""):
-            ingr_acne = "N/A"
+            if (ingr_acne == ""):
+                ingr_acne = "N/A"
 
-        ingr_irritant = ingr_more_info[1].get_text().replace("\n", "").strip()
+            ingr_irritant = ingr_more_info[1].get_text().replace("\n", "").strip()
 
-        if (ingr_irritant == ""):
-            ingr_irritant = "N/A"
+            if (ingr_irritant == ""):
+                ingr_irritant = "N/A"
+
+        except AttributeError:
+            ingr_name = ingredient.find(class_="text-muted").get_text().strip()
+            ingr_desc = 'N/A'
+            ingr_link = 'N/A'
+            ingr_acne = 'N/A'
+            ingr_irritant = 'N/A'
 
         ingr_source = "cosDNA"
 
         created = update.db_update(ingr_name, ingr_source, ingr_link,
                          ingr_desc, acne=ingr_acne, irritant=ingr_irritant)
 
-        created_ids.append(str(created))
+        all_created.append(created)
     
-    return created_ids
+    return all_created

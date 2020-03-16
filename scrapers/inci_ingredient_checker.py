@@ -38,9 +38,8 @@ headers = {
     'content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
 }
 
-
 def request_formatter(requested_ingrs):
-    requested_ingrs_str = "[\"" + requested_ingrs + "\"]"
+    requested_ingrs_str = "[\"" + requested_ingrs.lower() + "\"]"
 
     data = {
         'texts': f'{requested_ingrs_str}',
@@ -51,7 +50,7 @@ def request_formatter(requested_ingrs):
 
 def inciScraper(requested_ingrs):
 
-    created_ids = []
+    all_created = []
 
     data = request_formatter(requested_ingrs)
     response = requests.post(inci_url, data=data, headers=headers)
@@ -93,6 +92,6 @@ def inciScraper(requested_ingrs):
 
         created = update.db_update(ingr_name, ingr_source, ingr_link, ingr_desc, purpose=ingr_purpose, rating=ingr_rating, acne=ingr_acne, irritant=ingr_irritant)
 
-        created_ids.append(str(created))
+        all_created.append(created)
     
-    return created_ids
+    return all_created
