@@ -8,7 +8,7 @@ var nameSchema = new mongoose.Schema({
             ref: "ingredient_descriptions"
         }
     ],
-    vegan: String
+    vegan: Array
 });
 
 module.exports = mongoose.model("ingredient_names", nameSchema);

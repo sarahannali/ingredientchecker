@@ -34,12 +34,15 @@ module.exports = (app) => {
                 }
             })
 
-            // if (to_scrape.length > 0) {
-            //     const scraped = await Scrapers.runScrapers(to_scrape);
-            //     const all_Ingredients = await Name.find({ '_id': { $in: scraped } }).populate("descriptions").exec();
+            if (to_scrape.length > 0) {
+                const scrapedObjects = await Scrapers.runScrapers(to_scrape);
+                const scraped = scrapedObjects['objects']
+                scraped.forEach((el) => {
+                    found_names_array[request_array.indexOf(el.name)] = el
+                })
+            }
 
-            //     found_Names.push(all_Ingredients);
-            // }
+            console.log(found_names_array)
 
             res.json({found_names: found_names_array, sources: sources, limits: limits})
 

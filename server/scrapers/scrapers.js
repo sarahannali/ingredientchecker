@@ -2,15 +2,15 @@ const spawn = require("child_process").spawn;
 const mongodb = require("mongodb");
 
 async function runScrapers(requestedIngredients) {
-    let scraped_ids;
+    let scraped_objects;
 
     const scraperProcess = spawn('python', ["../scrapers/run_scrapers.py",
         requestedIngredients
     ]);
 
     scraperProcess.stdout.on('data', function (data) {
-        console.log(data.toString('utf8'));
-        scraped_ids = JSON.parse(data_string).ids.map((el) => mongodb.ObjectID(el));
+        const data_string = data.toString('utf8')
+        scraped_objects = JSON.parse(data_string)
     });
 
     let scraperPromise = new Promise((resolve, reject) => {
@@ -20,13 +20,14 @@ async function runScrapers(requestedIngredients) {
         });
 
         setTimeout(function () {
+            console.log('timeout')
             reject();
-        }, 10000)
+        }, 5000)
     });
 
     await scraperPromise
 
-    return scraped_ids
+    return scraped_objects
 }
 
 module.exports = {
