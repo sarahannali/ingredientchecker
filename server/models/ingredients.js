@@ -5,9 +5,13 @@ var ingredientSchema = new mongoose.Schema({
     description:[
         {
             purpose: String,
+            rating: String,
             acne: String,
             irritancy: String,
-            source: String
+            source: String,
+            vegan: String,
+            link: String,
+            moreinfo: String //turn into purpose
         }
     ]
 });

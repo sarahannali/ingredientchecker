@@ -11,7 +11,8 @@ app.use(bodyParser.json())
 mongoose.connect('mongodb://localhost:27017/ingredient_checker', {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
 });
 
 require('./routes/routes.js')(app);

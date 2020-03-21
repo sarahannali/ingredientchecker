@@ -1,9 +1,10 @@
-const   mongoose = require("mongoose"),
-        Name = require("../models/names"),
-        descriptions = require("../models/descriptions"),
-        Report = require("../models/reports")
-        Scrapers = require("../scrapers/scrapers"),
-        path = require("path");
+const mongoose = require("mongoose")
+const Ingredient = require("../models/ingredients")
+const Report = require("../models/reports")
+const cosScraper = require("../scrapers/cosDNA_scraper")
+const pcScraper = require("../scrapers/pc_scraper")
+const veganScraper = require("../scrapers/vegan_scraper")
+const path = require("path");
 
 module.exports = (app) => {
 
@@ -14,19 +15,20 @@ module.exports = (app) => {
     app.post('/ingrs', async function (req, res) {
         try {
             const request = req.body.textarea;
-            const sources = {cosDNA: req.body.cosDNA, INCIdecoder: req.body.INCIdecoder, PaulasChoice: req.body.PaulasChoice, Vegan: req.body.Vegan}
-            const limits = {acneLimit: req.body.acneLimit, irrLimit: req.body.irrLimit}
+            const sources = { cosDNA: req.body.cosDNA, INCIdecoder: req.body.INCIdecoder, PaulasChoice: req.body.PaulasChoice, Vegan: req.body.Vegan }
+            const limits = { acneLimit: req.body.acneLimit, irrLimit: req.body.irrLimit }
             const request_formatted = request.toUpperCase();
             const request_array = request_formatted.split(", ");
             let found_names_array = new Array(request_array.length);
 
-            const found_Names = await Name.find({ 'ingredient': { $in: request_array } }).populate("descriptions").exec();
-
-            let to_scrape = [];
+            const found_Names = await Ingredient.find({ 'name': { $in: request_array } });
 
             const db_names = found_Names.map((el) => {
-                found_names_array[request_array.indexOf(el.ingredient)] = el
-                return el.ingredient});
+                found_names_array[request_array.indexOf(el.name)] = el
+                return el.name
+            });
+
+            let to_scrape = []
 
             request_array.forEach((el) => {
                 if (!db_names.includes(el)) {
@@ -35,16 +37,20 @@ module.exports = (app) => {
             })
 
             if (to_scrape.length > 0) {
-                const scrapedObjects = await Scrapers.runScrapers(to_scrape);
-                const scraped = scrapedObjects['objects']
-                scraped.forEach((el) => {
-                    found_names_array[request_array.indexOf(el.name)] = el
-                })
+                await pcScraper.pcScraper(to_scrape)
+                await veganScraper.veganScraper(to_scrape)
+                const scrapedObjects = await cosScraper.cosScraper(to_scrape);
+                if (scrapedObjects) {
+                    scrapedObjects.forEach((el) => {
+                        found_names_array[request_array.indexOf(el.name)] = el
+                    })
+                }
+                else {
+                    console.error('cosDNA Scraper Error') // ADD LINK TO THIS
+                }
             }
 
-            console.log(found_names_array)
-
-            res.json({found_names: found_names_array, sources: sources, limits: limits})
+            res.json({ found_names: found_names_array, sources: sources, limits: limits })
 
         } catch (e) {
             console.log(e);
@@ -58,8 +64,8 @@ module.exports = (app) => {
             const selected = request[1]
             const time = new Date()
 
-            const report1 = new Report({'textarea': textarea, 'selected': selected, 'time': time})
-            report1.save(function(err, report){
+            const report1 = new Report({ 'textarea': textarea, 'selected': selected, 'time': time })
+            report1.save(function (err, report) {
                 if (err) return console.log(err);
                 console.log(report + " saved")
             })
