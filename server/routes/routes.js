@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const Ingredient = require("../models/ingredients")
+const IngredientName = require("../models/ingredientNames")
 const Report = require("../models/reports")
 const cosScraper = require("../scrapers/cosDNA_scraper")
 const pcScraper = require("../scrapers/pc_scraper")
@@ -21,7 +21,7 @@ module.exports = (app) => {
             const request_array = request_formatted.split(", ");
             let found_names_array = new Array(request_array.length);
 
-            const found_Names = await Ingredient.find({ 'name': { $in: request_array } });
+            const found_Names = await IngredientName.find({ 'name': { $in: request_array } }).populate("descriptions").exec();
 
             const db_names = found_Names.map((el) => {
                 found_names_array[request_array.indexOf(el.name)] = el
@@ -39,14 +39,17 @@ module.exports = (app) => {
             if (to_scrape.length > 0) {
                 await pcScraper.pcScraper(to_scrape)
                 await veganScraper.veganScraper(to_scrape)
-                const scrapedObjects = await cosScraper.cosScraper(to_scrape);
+                await cosScraper.cosScraper(to_scrape)
+
+                const scrapedObjects = await IngredientName.find({ 'name': { $in: to_scrape } }).populate("descriptions").exec()
+
                 if (scrapedObjects) {
                     scrapedObjects.forEach((el) => {
                         found_names_array[request_array.indexOf(el.name)] = el
                     })
                 }
                 else {
-                    console.error('cosDNA Scraper Error') // ADD LINK TO THIS
+                    console.error('Scraper Error')
                 }
             }
 
