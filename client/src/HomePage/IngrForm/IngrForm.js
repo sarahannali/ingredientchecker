@@ -22,7 +22,6 @@ class IngrForm extends Component {
             irrLimit: 0,
             acneLimit: 0,
             cosDNA: true,
-            INCIdecoder: true,
             PaulasChoice: true,
             Vegan: true
         }
@@ -65,7 +64,7 @@ class IngrForm extends Component {
     }
 
     render() {
-        const options = ["cosDNA", "INCIdecoder", "PaulasChoice", "Vegan"]
+        const options = ["cosDNA", "PaulasChoice", "Vegan"]
 
         const checkboxes = options.map((el, i) => (
             <div key={i} className={classes.checkboxes}>

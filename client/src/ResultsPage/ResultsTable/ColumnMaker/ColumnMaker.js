@@ -14,14 +14,14 @@ function columnMaker(props) {
         {props.description.rating
             ? <p>Rating: {props.description.rating}</p>
             : null}
-        {props.description.irritant
-            ? <p>Irritancy: {props.description.irritant}</p>
+        {props.description.irritancy
+            ? <p>Irritancy: {props.description.irritancy}</p>
             : null}
         {props.description.acne
             ? <p>Acne: {props.description.acne}</p>
             : null}
-        {props.description.vegan
-            ? <p>{props.description.vegan}</p>
+        {props.description.source === 'Vegan'
+            ? <p>{props.description.moreinfo}</p>
             : null}
     </td>
 }

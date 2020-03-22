@@ -10,7 +10,7 @@ function ResultsTable(props) {
 
         ingrDocument.ingredientDescriptions.forEach((desc) => {
             const id = uuid()
-            return (desc.description
+            return (desc.moreinfo
                 ? columns[props.sources.indexOf(desc.source)] = <ColumnMaker
                     description={desc}
                     key={id}
