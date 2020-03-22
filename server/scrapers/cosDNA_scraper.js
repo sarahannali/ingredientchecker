@@ -1,64 +1,107 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 const FormData = require('form-data')
-const Ingredient = require("../models/ingredients")
+const IngredientName = require("../models/ingredientNames")
+const IngredientDescription = require("../models/ingredientDescriptions")
+const Report = require("../models/reports")
+// const mongoose = require("mongoose")
+
+// mongoose.connect('mongodb://localhost:27017/ingredient_checker', {
+//     useNewUrlParser: true,
+//     useCreateIndex: true,
+//     useUnifiedTopology: true,
+//     useFindAndModify: false
+// });
 
 const bodyFormData = new FormData();
 
 const cos_url = "http://cosdna.com/eng/ingredients.php"
 
+// requested_ingrs = ['ACAI']
+
 async function cosScraper(requested_ingrs) {
     const string_ingrs = requested_ingrs.join(", ")
     bodyFormData.append('q', string_ingrs)
 
-    const res = await axios.post(cos_url, bodyFormData, { headers: bodyFormData.getHeaders() })
+    const returned_ingr = []
+
+    let res
+
+    try {
+        res = await axios.post(cos_url, bodyFormData, { headers: bodyFormData.getHeaders(), timeout: 3000 })
+    }
+    catch(err){
+        const time = new Date()
+        const report1 = new Report({ 'textarea': (err.code || err), 'selected': requested_ingrs, 'time': time })
+
+        report1.save(function (err, report) {
+            if (err) return console.log(err);
+            console.log(report + " saved")
+        })
+
+        return
+    }
 
     const html = res.data;
     const $ = cheerio.load(html)
 
-    const objects = []
-    const returned_ingr = []
-
-    if ($('.tr-i').length === 0){
-        return undefined
+    if ($('.tr-i').length === 0) {
+        return
     }
 
-    $('.tr-i').each(function () {
+    $('.tr-i').each(async function () {
         const $ingr = $(this);
-        const $name = $ingr.find('td:nth-child(1)').text().trim().toUpperCase()
+
+        const $link = $ingr.find('td:nth-child(1) > a').attr('href')
+        const $name = $ingr.find('td:nth-child(1)').text().replace(/(\n)|(\s+)/gm, " ").trim().toUpperCase()
         returned_ingr.push($name)
 
-        const $purpose = $ingr.find('td:nth-child(2)').text().replace(/(\n)|(\s+)/gm, " ").trim()
+        const $moreinfo = $ingr.find('td:nth-child(2)').text().replace(/(\n)|(\s+)/gm, " ").trim()
         const $acne = $ingr.find('td:nth-child(3)').text().trim()
         const $irritancy = $ingr.find('td:nth-child(4)').text().trim()
 
-        const description = { 'purpose': ($purpose), 'acne': ($acne), 'irritancy': ($irritancy), 'source': 'cosDNA' }
+        const description = { 'link': $link, 'moreinfo': ($moreinfo), 'acne': ($acne), 'irritancy': ($irritancy), 'source': 'cosDNA' }
 
-        let docPromise = Ingredient.findOneAndUpdate({ 'name': $name }, { $push: { 'description': description } }, {
+        let descDoc = await IngredientDescription.findOne({ 'link': description['link'] })
+
+        if (descDoc === null) {
+            descDoc = await IngredientDescription.create(description)
+        }
+
+        await IngredientName.findOneAndUpdate({ 'name': $name }, { $push: { 'descriptions': descDoc['_id'] } }, {
             new: true,
             upsert: true
         })
-
-        objects.push(docPromise)
     })
 
-    requested_ingrs.forEach((ingr) => {
-        if (!returned_ingr.includes(ingr)){
-            const description = { 'purpose': 'N/A', 'acne': '', 'irritancy': '', 'source': 'cosDNA' }
+    const empty_ingrs = async () => {
+        for (const ingr of requested_ingrs) {
+            if (!returned_ingr.includes(ingr)) {
+                const description = { 'link': '', 'moreinfo': 'N/A', 'acne': 'N/A', 'irritancy': 'N/A', 'source': 'cosDNA' }
 
-            let docPromise = Ingredient.findOneAndUpdate({ 'name': ingr }, { $push: { 'description': description } }, {
-                new: true,
-                upsert: true
-            })
-    
-            objects.push(docPromise)
+                let descDoc = await IngredientDescription.findOne(description, {
+                    upsert: true
+                })
+
+                if (descDoc === null) {
+                    descDoc = await IngredientDescription.create(description)
+                }
+
+                await IngredientName.findOneAndUpdate({ 'name': ingr }, { $push: { 'description': descDoc['_id'] } }, {
+                    new: true,
+                    upsert: true
+                })
+            }
         }
-    })
+    }
 
-    const docs = await Promise.all(objects)
-
-    return docs
+    if (requested_ingrs.length !== returned_ingr.length) {
+        empty_ingrs()
+    }
 }
+
+
+// cosScraper(requested_ingrs)
 
 module.exports = {
     cosScraper: cosScraper
