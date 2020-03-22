@@ -6,7 +6,7 @@ var pcSchema = new mongoose.Schema({
         source: String,
         link: String,
         rating: String,
-        moreinfo: String //change to : 'purpose'
+        moreinfo: String
     }
 });
 
