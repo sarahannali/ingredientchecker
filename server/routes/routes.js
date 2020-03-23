@@ -53,6 +53,8 @@ module.exports = (app) => {
                 }
             }
 
+            console.log(found_names_array)
+
             res.json({ found_names: found_names_array, sources: sources, limits: limits })
 
         } catch (e) {

@@ -4,20 +4,10 @@ const FormData = require('form-data')
 const IngredientName = require("../models/ingredientNames")
 const IngredientDescription = require("../models/ingredientDescriptions")
 const Report = require("../models/reports")
-// const mongoose = require("mongoose")
-
-// mongoose.connect('mongodb://localhost:27017/ingredient_checker', {
-//     useNewUrlParser: true,
-//     useCreateIndex: true,
-//     useUnifiedTopology: true,
-//     useFindAndModify: false
-// });
 
 const bodyFormData = new FormData();
 
 const cos_url = "http://cosdna.com/eng/ingredients.php"
-
-// requested_ingrs = ['ACAI']
 
 async function cosScraper(requested_ingrs) {
     const string_ingrs = requested_ingrs.join(", ")
@@ -74,7 +64,7 @@ async function cosScraper(requested_ingrs) {
         })
     })
 
-    const empty_ingrs = async () => {
+    if (requested_ingrs.length !== returned_ingr.length) {
         for (const ingr of requested_ingrs) {
             if (!returned_ingr.includes(ingr)) {
                 const description = { 'link': '', 'moreinfo': 'N/A', 'acne': 'N/A', 'irritancy': 'N/A', 'source': 'cosDNA' }
@@ -94,14 +84,7 @@ async function cosScraper(requested_ingrs) {
             }
         }
     }
-
-    if (requested_ingrs.length !== returned_ingr.length) {
-        empty_ingrs()
-    }
 }
-
-
-// cosScraper(requested_ingrs)
 
 module.exports = {
     cosScraper: cosScraper

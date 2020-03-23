@@ -2,8 +2,8 @@ const IngredientName = require("../models/ingredientNames")
 const IngredientDescription = require("../models/ingredientDescriptions")
 const Vegan = require("../models/vegan")
 
-function veganScraper(requested_ingrs) {
-    async function veganSingleScraper(ingr) {
+async function veganScraper(requested_ingrs) {
+    for (const ingr of requested_ingrs) {
         const vegan_doc = await Vegan.find({ 'name': ingr.toLowerCase() })
         let vegan
         if (vegan_doc.length > 0) {
@@ -24,7 +24,7 @@ function veganScraper(requested_ingrs) {
 
         let descDoc = await IngredientDescription.findOne(description)
 
-        if (descDoc === null){
+        if (descDoc === null) {
             descDoc = await IngredientDescription.create(description)
         }
 
@@ -33,9 +33,6 @@ function veganScraper(requested_ingrs) {
             upsert: true
         })
     }
-    requested_ingrs.forEach((ingr) => {
-        veganSingleScraper(ingr)
-    })
 }
 
 module.exports = {
