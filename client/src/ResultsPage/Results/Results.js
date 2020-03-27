@@ -4,8 +4,10 @@ function results(ingredientObject, sourcesToInclude, acneLimit, irrLimit) {
 
     let ingredientType = ''
 
+    let returnedIngrs = []
+
     const descriptions = ingredientObject.descriptions.map((desc) => {
-        if (!sourcesToInclude.includes(desc.source)) {
+        if (!sourcesToInclude.includes(desc.source) || (desc.acne === null))  {
             return {
                 'source': null,
                 'moreinfo': null,
@@ -15,6 +17,21 @@ function results(ingredientObject, sourcesToInclude, acneLimit, irrLimit) {
                 'type': null,
                 'link': null
             }
+        }
+
+        if ((returnedIngrs.includes(desc.source))) {
+            return {
+                'source': null,
+                'moreinfo': null,
+                'rating': null,
+                'acne': null,
+                'irritancy': null,
+                'type': null,
+                'link': null
+            }
+        }
+        else{
+            returnedIngrs.push(desc.source)
         }
 
         let descriptionType = ''
@@ -40,9 +57,13 @@ function results(ingredientObject, sourcesToInclude, acneLimit, irrLimit) {
         }
 
         else if (desc.source === 'Vegan') {
-            if (desc.moreinfo === 'No' || desc.moreinfo === 'Maybe') {
+            if (desc.moreinfo === 'No') {
                 ingredientType = 'BAD'
                 descriptionType = 'BAD'
+            }
+            else if (desc.moreinfo === 'Maybe, Ask Supplier'){
+                ingredientType = 'MAYBE'
+                descriptionType = 'MAYBE'
             }
         }
 
@@ -57,6 +78,10 @@ function results(ingredientObject, sourcesToInclude, acneLimit, irrLimit) {
         }
 
     })
+
+    if (descriptions.length <= 1 && ingredientType !== 'BAD'){
+        ingredientType = 'NONE'
+    }
 
     return {
         'ingredientName': ingredientName,
