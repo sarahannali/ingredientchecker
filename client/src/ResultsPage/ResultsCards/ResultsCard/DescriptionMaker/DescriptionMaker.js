@@ -10,6 +10,9 @@ function DescriptionMaker(props) {
     else if (props.description.type === 'BAD') {
         ingrColor = '#fff3ed'
     }
+    else if (props.description.type === 'MAYBE') {
+        ingrColor = '#f9f5ff'
+    }
 
     let description = props.description.moreinfo
     let readmore = null
@@ -24,7 +27,9 @@ function DescriptionMaker(props) {
             {props.description.source}
         </div>
         <div className={classes.moreInfo}>
-            <p>Description: {description}{readmore}</p>
+            {description
+                ? <p>Description: {description}{readmore}</p>
+                : <p>Description: N/A</p>}
             {props.description.rating
                 ? <p>Rating: {props.description.rating}</p>
                 : null}

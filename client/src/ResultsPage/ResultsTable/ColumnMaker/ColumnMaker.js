@@ -9,6 +9,9 @@ function columnMaker(props) {
     else if (props.description.type === 'BAD') {
         ingrColor = '#fff3ed'
     }
+    else if (props.description.type === 'MAYBE') {
+        ingrColor = '#f9f5ff'
+    }
 
     return <td bgcolor={ingrColor}>
         {props.description.rating
