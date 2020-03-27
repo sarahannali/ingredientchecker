@@ -17,20 +17,22 @@ module.exports = (app) => {
             const request = req.body.textarea;
             const sources = { cosDNA: req.body.cosDNA, INCIdecoder: req.body.INCIdecoder, PaulasChoice: req.body.PaulasChoice, Vegan: req.body.Vegan }
             const limits = { acneLimit: req.body.acneLimit, irrLimit: req.body.irrLimit }
-            const request_formatted = request.toUpperCase();
+            const request_formatted = request.toUpperCase().replace(/(\n)|(\.)|(\*)|^INACTIVE\s?|^Inactive\s?|^ACTIVE\s?|^Active\s?|Ingredients\s?|INGREDIENTS\s?|:\s?|/g, '').replace(/ \d+% ?/g, '').replace(/INACTIVE(\s?)|Inactive(\s?)/g, ", ");
+            // replace: new lines, replace: periods, replace: percentages, replace: 'Inactive: '
             const request_array = request_formatted.split(", ");
-            let found_names_array = new Array(request_array.length);
+            const request_set = [...new Set(request_array)]
+            let found_names_array = new Array(request_set.length);
 
-            const found_Names = await IngredientName.find({ 'name': { $in: request_array } }).populate("descriptions").exec();
+            const found_Names = await IngredientName.find({ 'name': { $in: request_set } }).populate("descriptions").exec();
 
             const db_names = found_Names.map((el) => {
-                found_names_array[request_array.indexOf(el.name)] = el
+                found_names_array[request_set.indexOf(el.name)] = el
                 return el.name
             });
 
             let to_scrape = []
 
-            request_array.forEach((el) => {
+            request_set.forEach((el) => {
                 if (!db_names.includes(el)) {
                     to_scrape.push(el);
                 }
@@ -45,15 +47,13 @@ module.exports = (app) => {
 
                 if (scrapedObjects) {
                     scrapedObjects.forEach((el) => {
-                        found_names_array[request_array.indexOf(el.name)] = el
+                        found_names_array[request_set.indexOf(el.name)] = el
                     })
                 }
                 else {
                     console.error('Scraper Error')
                 }
             }
-
-            console.log(found_names_array)
 
             res.json({ found_names: found_names_array, sources: sources, limits: limits })
 
