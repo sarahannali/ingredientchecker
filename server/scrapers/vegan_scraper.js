@@ -8,8 +8,9 @@ async function veganScraper(requested_ingrs) {
         let vegan
         if (vegan_doc.length > 0) {
             vegan_doc.forEach((doc) => {
-                if (doc.vegan === 'Maybe') {
-                    vegan = 'Maybe'
+                doc = doc.toObject()
+                if (doc.moreinfo === 'Maybe') {
+                    vegan = 'Maybe, Ask Supplier'
                 }
                 else {
                     vegan = 'No'

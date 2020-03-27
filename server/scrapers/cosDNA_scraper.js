@@ -47,6 +47,7 @@ async function cosScraper(requested_ingrs) {
         returned_ingr.push($name)
 
         const $moreinfo = $ingr.find('td:nth-child(2)').text().replace(/(\n)|(\s+)/gm, " ").trim()
+
         const $acne = $ingr.find('td:nth-child(3)').text().trim()
         const $irritancy = $ingr.find('td:nth-child(4)').text().trim()
 
