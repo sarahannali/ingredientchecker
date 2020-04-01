@@ -1,7 +1,10 @@
 var mongoose = require("mongoose");
 
 var ingredientSchema = new mongoose.Schema({
-    name: String,
+    name: {
+       type: String,
+       trim: true
+    },
     descriptions: [
         {
             type: mongoose.Schema.Types.ObjectId,

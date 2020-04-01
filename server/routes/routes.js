@@ -17,10 +17,22 @@ module.exports = (app) => {
             const request = req.body.textarea;
             const sources = { cosDNA: req.body.cosDNA, INCIdecoder: req.body.INCIdecoder, PaulasChoice: req.body.PaulasChoice, Vegan: req.body.Vegan }
             const limits = { acneLimit: req.body.acneLimit, irrLimit: req.body.irrLimit }
-            const request_formatted = request.toUpperCase().replace(/(\n)|(\.)|(\*)|^INACTIVE\s?|^Inactive\s?|^ACTIVE\s?|^Active\s?|Ingredients\s?|INGREDIENTS\s?|:\s?|/g, '').replace(/ \d+% ?/g, '').replace(/INACTIVE(\s?)|Inactive(\s?)/g, ", ");
+            const request_formatted = request.toUpperCase().replace(/(\n)|(\.)|(\*)|(\^)|(\")|(\+)|^INACTIVE\s?|\bACTIVE\s?|^INGREDIENT(S?)\s?|\bOTHER|ORGANIC|:\s?| *\([^)]*\)/g, '').replace(/ \d+% ?/g, '').replace(/INACTIVE(\s?)|INGREDIENT(S?)\s?/g, ", ");
             // replace: new lines, replace: periods, replace: percentages, replace: 'Inactive: '
-            const request_array = request_formatted.split(", ");
-            const request_set = [...new Set(request_array)]
+            let request_array = request_formatted.split(",");
+
+            if (request_array.length === 1){
+                request_array = request_formatted.split(";")
+            }
+
+            const request_set = []
+
+            request_array.forEach((el) => {
+                if (el.trim().length > 2 && !request_set.includes(el.trim()) && el.trim() !== ''){
+                    request_set.push(el.trim())
+                }
+            })
+
             let found_names_array = new Array(request_set.length);
 
             const found_Names = await IngredientName.find({ 'name': { $in: request_set } }).populate("descriptions").exec();
@@ -33,12 +45,13 @@ module.exports = (app) => {
             let to_scrape = []
 
             request_set.forEach((el) => {
-                if (!db_names.includes(el)) {
-                    to_scrape.push(el);
+                if (!db_names.includes(el.trim())) {
+                    to_scrape.push(el.trim());
                 }
             })
 
             if (to_scrape.length > 0) {
+                console.log('scraping')
                 await pcScraper.pcScraper(to_scrape)
                 await veganScraper.veganScraper(to_scrape)
                 await cosScraper.cosScraper(to_scrape)
