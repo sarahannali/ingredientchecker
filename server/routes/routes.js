@@ -9,7 +9,7 @@ const path = require("path");
 module.exports = (app) => {
 
     app.get('/', function (req, res) {
-        res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+        res.sendFile(path.join(__dirname, "./client/build", "index.html"));
     });
 
     app.post('/ingrs', async function (req, res) {
@@ -36,7 +36,6 @@ module.exports = (app) => {
             let found_names_array = new Array(request_set.length);
 
             const found_Names = await IngredientName.find({ 'name': { $in: request_set } }).populate("descriptions").exec();
-
             const db_names = found_Names.map((el) => {
                 found_names_array[request_set.indexOf(el.name)] = el
                 return el.name
