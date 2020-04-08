@@ -21,6 +21,13 @@ mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}${p
 
 require('./routes/routes.js')(app);
 
+app.use (function (req, res, next) {
+    if (req.secure) {
+            next();
+    } else {
+            res.redirect('https://' + req.headers.host + req.url);
+    }
+});
 
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
