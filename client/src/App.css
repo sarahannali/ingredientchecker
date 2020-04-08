@@ -4,13 +4,24 @@ body {
 
 .App{
   min-height: 100vh;
+  z-index: -1;
   display: flex;
   justify-content: center;
-  background: rgb(22, 38, 48);
-}
+  background: #536976;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #292E49, #536976);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #292E49, #536976); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  }
 
 a{
   color: black;
   font-family: 'Muli', sans-serif;
   text-decoration: none;
+}
+
+.background{
+  z-index: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  margin: 0;
 }

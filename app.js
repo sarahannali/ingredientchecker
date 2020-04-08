@@ -5,7 +5,10 @@ const bodyParser = require("body-parser"),
     path = require("path");
     dotenv = require("dotenv");
 
-dotenv.config()
+if (process.env.ENV == 'development'){
+    dotenv.config();
+}
+
 app.use(express.static("./client/build"));
 app.use(bodyParser.json())
 
