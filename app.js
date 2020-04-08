@@ -3,15 +3,18 @@ const bodyParser = require("body-parser"),
     express = require("express"),
     app = express(),
     path = require("path");
+    dotenv = require("dotenv");
 
+dotenv.config()
 app.use(express.static(path.join(__dirname, "../client/build")));
 app.use(bodyParser.json())
 // app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect('mongodb://localhost:27017/ingredient_checker', {
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}${process.env.DB_HOST}`, {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
 });
 
 require('./routes/routes.js')(app);

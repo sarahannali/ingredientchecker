@@ -5,19 +5,24 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "client": "npm run start --prefix ../client",
+    "client": "npm run start --prefix ./client",
     "server": "nodemon app.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "start": "node app.js"
+    "start": "node app.js",
+    "deploy": "(cd client && npm run build) & (cd .. && gcloud app deploy app.yml)"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.2",
     "body-parser": "^1.19.0",
+    "cheerio": "^1.0.0-rc.3",
     "concurrently": "^5.1.0",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "form-data": "^3.0.0",
     "mongodb": "^3.5.3",
     "mongoose": "^5.8.12",
     "nodemon": "^2.0.2"

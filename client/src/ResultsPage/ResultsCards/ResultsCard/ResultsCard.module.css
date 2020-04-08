@@ -23,6 +23,7 @@
 
 .ResultsCard h1{
     font-size: 1.3em;
+    word-break: break-word;
 }
 
 .ResultsCard i{

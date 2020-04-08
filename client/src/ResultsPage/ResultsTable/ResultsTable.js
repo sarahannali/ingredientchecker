@@ -8,9 +8,24 @@ function ResultsTable(props) {
     const rows = props.ingredients.map((ingrDocument, i1) => {
         let columns = Array.from({ length: props.sources.length }, (_, i2) => <td key={i2}></td>)
 
+        if (ingrDocument.ingredientType === 'NONE') {
+            return <tr style={{height: '52px'}} key={i1}>
+                {props.report
+                    ? <td><Checkbox
+                        color="default"
+                        value={ingrDocument.ingredientName}
+                        inputProps={{ 'aria-label': 'checkbox with default color' }}
+                        onChange={() => props.handleCheckboxChange(ingrDocument.ingredientName)}
+                    /></td>
+                    : null}
+                <td>{ingrDocument.ingredientName}</td>
+                {columns}
+            </tr>
+        }
+
         ingrDocument.ingredientDescriptions.forEach((desc) => {
             const id = uuid()
-            return (desc.description
+            return (desc.moreinfo !== null
                 ? columns[props.sources.indexOf(desc.source)] = <ColumnMaker
                     description={desc}
                     key={id}
@@ -18,7 +33,7 @@ function ResultsTable(props) {
                 : <td key={id}></td>)
         })
 
-        return <tr key={i1}>
+        return <tr style={{height: '52px'}} key={i1}>
             {props.report
                 ? <td><Checkbox
                     color="default"

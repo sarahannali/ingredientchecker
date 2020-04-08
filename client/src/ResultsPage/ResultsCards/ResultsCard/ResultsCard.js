@@ -27,6 +27,12 @@ function ResultsCard(props) {
     else if (ingredientType === 'BAD' && !showResults) {
         ingrColor = '#fff3ed'
     }
+    else if (ingredientType === 'MAYBE' && !showResults) {
+        ingrColor = '#f9f5ff'
+    }
+    else if (ingredientType === 'NONE' && !showResults) {
+        ingrColor = '#f0f0f0'
+    }
 
     return (
         <div style={{ backgroundColor: ingrColor }} className={classes.ResultsCard}>
@@ -39,10 +45,16 @@ function ResultsCard(props) {
                         onChange={() => props.handleCheckboxChange(ingredientName)}
                     />
                     : null}
-                <div onClick={() => setShowResults(!showResults)} className={classes.title}>
-                    <h1>{ingredientName}</h1>
-                    {arrow}
-                </div>
+                {ingredientType === 'NONE'
+                    ? <div className={classes.title}>
+                        <h1>{ingredientName}</h1>
+                        <span style={{marginLeft: '1em'}}>N/A</span>
+                    </div>
+                    : <div onClick={() => setShowResults(!showResults)} className={classes.title}>
+                        <h1>{ingredientName}</h1>
+                        {arrow}
+                    </div>
+                }
             </div>
             {showResults
                 ? <div className={classes.description}>{descriptions}</div>
