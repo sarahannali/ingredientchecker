@@ -20,6 +20,7 @@ mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}${p
 });
 
 require('./routes/routes.js')(app);
+app.enable('trust proxy');
 
 app.use (function (req, res, next) {
     if (req.secure) {
