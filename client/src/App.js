@@ -47,8 +47,8 @@ function App() {
       {!results
         ? <HomePage results={setResults} />
         : <ResultsPage results={results} />}
+      <p className="pagelinks"><a href="https://github.com/sarahannali/ingredientchecker" target='_blank' rel="noopener noreferrer">GITHUB</a> | <a href="https://www.flaticon.com/authors/pixel-buddha" title="Pixel Buddha" target='_blank' rel="noopener noreferrer">ICON</a></p>
     </div>
-    // <div>Icons made by <a href="https://www.flaticon.com/authors/pixel-buddha" title="Pixel Buddha">Pixel Buddha</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
   );
 }
 
