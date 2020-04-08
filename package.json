@@ -9,7 +9,7 @@
     "server": "nodemon app.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "start": "node app.js",
-    "deploy": "(cd client && npm run build) & (cd .. && gcloud app deploy app.yml)"
+    "heroku-prebuild": "cd client && npm install && npm run build"
   },
   "keywords": [],
   "author": "",

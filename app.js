@@ -18,6 +18,10 @@ mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}${p
 
 require('./routes/routes.js')(app);
 
+app.get('/ping', (req, res) => {
+    res.sendStatus(200);
+})
+
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
 })

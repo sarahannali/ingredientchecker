@@ -54,7 +54,7 @@ class IngrForm extends Component {
             running: runningCopy
         });
 
-        axios.post("http://localhost:3000/ingrs", this.state)
+        axios.post("/ingrs", this.state)
             .then(res => {
                 this.props.response(res.data);
             })
