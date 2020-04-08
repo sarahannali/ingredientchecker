@@ -1,6 +1,5 @@
 .env
 node_modules
 todo.txt
-scrapers/__pycache__
 bin/
-server/scrapers/cosDNA_rescraper/
+scrapers/cosDNA_rescraper/

@@ -12,6 +12,13 @@ if (process.env.ENV == 'development'){
 app.use(express.static("./client/build"));
 app.use(bodyParser.json())
 
+app.use(function(req, res, next) {
+    if ((req.get('X-forwarded-Proto') !== 'https')) {
+        res.redirect('https://' + req.get('Host') + req.url);
+    }
+    else next();
+})
+
 mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}${process.env.DB_HOST}`, {
     useNewUrlParser: true,
     useCreateIndex: true,
