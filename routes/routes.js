@@ -17,7 +17,7 @@ module.exports = (app) => {
             const request = req.body.textarea;
             const sources = { cosDNA: req.body.cosDNA, INCIdecoder: req.body.INCIdecoder, PaulasChoice: req.body.PaulasChoice, Vegan: req.body.Vegan }
             const limits = { acneLimit: req.body.acneLimit, irrLimit: req.body.irrLimit }
-            const request_formatted = request.toUpperCase().replace(/(\n)|(\*)|(\^)|(\")|(\+)|^INACTIVE\s?|\bACTIVE\s?|^INGREDIENT(S?)\s?|\bOTHER|ORGANIC|:\s?| *\([^)]*\)/g, '').replace(/ \d+% ?/g, '').replace(/INACTIVE(\s?)|INGREDIENT(S?)\s?|(\.)/g, ", ");
+            const request_formatted = request.toUpperCase().replace(/(\n)|(\*)|(\^)|(\")|(\+)|^INACTIVE\s?|\bACTIVE\s?|^INGREDIENT(S?)\s?|\bOTHER|ORGANIC|:\s?| *\([^)]*\)/g, '').replace(/ \d+% ?/g, '').replace(/INACTIVE(\s?)|INGREDIENT(S?)\s?|(\.)|MAY CONTAIN/g, ", ");
             // replace: new lines, replace: periods, replace: percentages, replace: 'Inactive: '
             let request_array = request_formatted.split(",");
 
