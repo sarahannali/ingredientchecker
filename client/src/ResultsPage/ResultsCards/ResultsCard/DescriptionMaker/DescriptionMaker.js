@@ -15,11 +15,10 @@ function DescriptionMaker(props) {
     }
 
     let description = props.description.moreinfo
-    let readmore = null
+    const readmore = <a href={props.description.link} target='_blank' rel="noopener noreferrer">(Read More)</a>
 
     if (props.description.moreinfo.length > 200) {
         description = description.slice(0, 200) + ' ... '
-        readmore = <a href={props.description.link} target='_blank' rel="noopener noreferrer">(Read More)</a>
     }
 
     return <div>
@@ -28,7 +27,7 @@ function DescriptionMaker(props) {
         </div>
         <div className={classes.moreInfo}>
             {description
-                ? <p>Description: {description}{readmore}</p>
+                ? <p>Description: {description} {readmore}</p>
                 : <p>Description: N/A</p>}
             {props.description.rating
                 ? <p>Rating: {props.description.rating}</p>
