@@ -62,6 +62,12 @@
     background: rgb(87, 168, 190);
 }
 
+@media only screen and (max-width: 600px) {
+    .ResultsPage{
+        margin-top: 5vh;
+    }
+  }
+
 /* width */
 ::-webkit-scrollbar {
 width: 5px;
