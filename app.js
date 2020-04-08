@@ -6,7 +6,7 @@ const bodyParser = require("body-parser"),
     dotenv = require("dotenv");
 
 dotenv.config()
-app.use(express.static(path.join(__dirname, "./client/build")));
+app.use(express.static("./client/build"));
 app.use(bodyParser.json())
 
 mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}${process.env.DB_HOST}`, {
