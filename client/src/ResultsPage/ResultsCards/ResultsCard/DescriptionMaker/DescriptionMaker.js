@@ -27,7 +27,7 @@ function DescriptionMaker(props) {
         </div>
         <div className={classes.moreInfo}>
             {description
-                ? <p>Description: {description} {readmore}</p>
+                ? <p>Description: {description} {props.description.link ? readmore : null}</p>
                 : <p>Description: N/A</p>}
             {props.description.rating
                 ? <p>Rating: {props.description.rating}</p>
