@@ -15,6 +15,7 @@ function DescriptionMaker(props) {
     }
 
     let description = props.description.moreinfo
+
     let link = props.description.link
 
     if (props.description.source === 'cosDNA'){
@@ -22,6 +23,7 @@ function DescriptionMaker(props) {
     }
 
     const readmore = <a href={link} target='_blank' rel="noopener noreferrer">(Read More)</a>
+
 
     if (props.description.moreinfo.length > 200) {
         description = description.slice(0, 200) + ' ... '
