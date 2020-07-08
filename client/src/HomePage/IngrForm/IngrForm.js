@@ -84,7 +84,7 @@ class IngrForm extends Component {
                 <h3>Paste your ingredients list below:</h3>
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="request">
-                        <textarea name="request" id="request" onChange={this.handleTextChange} placeholder="Ex: Pyrus Malus (Apple) Fruit Water, Butylene Glycol, Glycolic Acid, Niacinamide, Sodium Hydroxide, 1,2-Hexanediol, Panthenol, Sodium Hyaluronate, Xanthan Gum, Ethyl Hexanediol."></textarea>
+                        <textarea name="request" id="request" onChange={this.handleTextChange} placeholder="Ex: Glycolic Acid, Niacinamide, Honey, Sodium Hydroxide, 1,2-Hexanediol, Panthenol, Sodium Hyaluronate, Xanthan Gum, Ethyl Hexanediol."></textarea>
                     </label>
                     <hr></hr>
                         <ThemeProvider theme={theme}>
