@@ -3,7 +3,8 @@ var mongoose = require("mongoose");
 var ingredientSchema = new mongoose.Schema({
     name: {
        type: String,
-       trim: true
+       trim: true,
+       index: true,
     },
     descriptions: [
         {
